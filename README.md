@@ -3,7 +3,7 @@ bme280 connected via i2c 1 to a raspberry pi, component for home assistant
 you need to load some kernel modules to enable i2c, there's an home assistant component to do it easily:
 https://community.home-assistant.io/t/add-on-hassos-i2c-configurator/264167
 
-This is the original home assistant component (removed from the current distro) with a few mods to the code to make it compatible with the current version
+This is the original, old, home assistant component (now removed from the current distro) with a few mods to the code to make it compatible with the current version
 you can place the bme280 folder inside your config/custom_components folder and configure it inside your configuration.yaml, this is mine:
 
 bme280:
