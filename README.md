@@ -7,8 +7,9 @@ This is the original, old, home assistant component (now removed from the curren
 you can place the bme280 folder inside your config/custom_components folder and configure it inside your configuration.yaml, this is mine:
 
 ```yaml
-bme280:
-  - name: "bme"
+sensor:
+  - platform: bme280
+    name: "bme"
     i2c_address: "0x77"
     i2c_bus: "1"
     operation_mode: 2
