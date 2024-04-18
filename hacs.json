@@ -1,0 +1,7 @@
+{
+    "name": "bme280rpi",
+    "domains": [
+        "sensor"
+    ],
+    "render_readme": true
+}
