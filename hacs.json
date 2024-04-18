@@ -1,7 +1,4 @@
 {
     "name": "bme280",
-    "domains": [
-        "sensor"
-    ],
     "render_readme": true
 }
