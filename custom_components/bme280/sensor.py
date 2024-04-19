@@ -55,26 +55,25 @@ async def async_setup_platform(
     sensor_conf = discovery_info[SENSOR_DOMAIN]
     name = sensor_conf[CONF_NAME]
     scan_interval = max(sensor_conf[CONF_SCAN_INTERVAL], MIN_TIME_BETWEEN_UPDATES)
-    if True:
-        i2c_address = sensor_conf[CONF_I2C_ADDRESS]
-        bus = smbus.SMBus(sensor_conf[CONF_I2C_BUS])
-        sensor = await hass.async_add_executor_job(
-            partial(
-                BME280_i2c,
-                bus,
-                i2c_address,
-                osrs_t=sensor_conf[CONF_OVERSAMPLING_TEMP],
-                osrs_p=sensor_conf[CONF_OVERSAMPLING_PRES],
-                osrs_h=sensor_conf[CONF_OVERSAMPLING_HUM],
-                mode=sensor_conf[CONF_OPERATION_MODE],
-                t_sb=sensor_conf[CONF_T_STANDBY],
-                filter_mode=sensor_conf[CONF_FILTER_MODE],
-                delta_temp=sensor_conf[CONF_DELTA_TEMP],
-            )
+    i2c_address = sensor_conf[CONF_I2C_ADDRESS]
+    bus = smbus.SMBus(sensor_conf[CONF_I2C_BUS])
+    sensor = await hass.async_add_executor_job(
+        partial(
+            BME280_i2c,
+            bus,
+            i2c_address,
+            osrs_t=sensor_conf[CONF_OVERSAMPLING_TEMP],
+            osrs_p=sensor_conf[CONF_OVERSAMPLING_PRES],
+            osrs_h=sensor_conf[CONF_OVERSAMPLING_HUM],
+            mode=sensor_conf[CONF_OPERATION_MODE],
+            t_sb=sensor_conf[CONF_T_STANDBY],
+            filter_mode=sensor_conf[CONF_FILTER_MODE],
+            delta_temp=sensor_conf[CONF_DELTA_TEMP],
         )
-        if not sensor.sample_ok:
-            _LOGGER.error("BME280 sensor not detected at %s", i2c_address)
-            return
+    )
+    if not sensor.sample_ok:
+        _LOGGER.error("BME280 sensor not detected at %s", i2c_address)
+        return
 
     async def async_update_data():
         await hass.async_add_executor_job(sensor.update)
@@ -102,14 +101,14 @@ async def async_setup_platform(
 class BME280Sensor(CoordinatorEntity, SensorEntity):
     """Implementation of the BME280 sensor."""
 
-    def __init__(self, name, coordinator, description: SensorEntityDescription):
+    def __init__(self, name, coordinator, description: SensorEntityDescription) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
         self.entity_description = description
         self._attr_name = f"{name} {description.name}"
 
     @property
-    def native_value(self):
+    def native_value(self) -> any:
         """Return the state of the sensor."""
         sensor_type = self.entity_description.key
         if sensor_type == SENSOR_TEMP:
