@@ -21,6 +21,7 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
     UpdateFailed,
 )
+from homeassistant.util import slugify
 
 from .const import (
     CONF_DELTA_TEMP,
@@ -106,6 +107,12 @@ class BME280Sensor(CoordinatorEntity, SensorEntity):
         super().__init__(coordinator)
         self.entity_description = description
         self._attr_name = f"{name} {description.name}"
+        self._unique_id = slugify(f"{DOMAIN}_{self._attr_name}_{self.entity_description.key}")
+
+    @property
+    def unique_id(self):
+        """Return a unique_id for this entity."""
+        return self._unique_id
 
     @property
     def native_value(self) -> any:
