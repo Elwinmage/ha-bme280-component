@@ -106,6 +106,7 @@ class BME280Sensor(CoordinatorEntity, SensorEntity):
         super().__init__(coordinator)
         self.entity_description = description
         self._attr_name = f"{name} {description.name}"
+        self._unique_id = slugify(f"{DOMAIN}_{self._attr_name}_self.entity_description.key.sensor_type")
 
     @property
     def native_value(self) -> any:
@@ -120,6 +121,11 @@ class BME280Sensor(CoordinatorEntity, SensorEntity):
             state = round(self.coordinator.data.pressure, 1)
         return state
 
+    @property
+    def unique_id(self):
+        """Return a unique_id for this entity."""
+        return self._unique_id
+   
     @property
     def should_poll(self) -> bool:
         """Return False if entity should not poll."""
