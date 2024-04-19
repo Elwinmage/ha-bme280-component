@@ -2,8 +2,8 @@ bme280 connected via i2c 1 to a raspberry pi, component for home assistant
 
 Fork from https://github.com/gdiciocco/bme280
 
-This is the original, old, home assistant component (now removed from the current distro) with a few mods to the code to make it compatible with the current version
-you can place the bme280 folder inside your config/custom_components folder and configure it inside your configuration.yaml, this is mine:
+This is the original, old, home assistant component (now removed from the current distro) with a few mods to the code to make it compatible with the current version.
+You can install it with hacs.
 
 ```yaml
 bme280:
